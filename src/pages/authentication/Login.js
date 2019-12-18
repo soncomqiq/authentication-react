@@ -3,6 +3,19 @@ import { Row, Col, Form, Icon, Input, Button } from 'antd';
 import logo from '../../images/logo.png'
 
 export default class Login extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      username: '',
+      password: '',
+    }
+  }
+
+  handleSubmit = () => {
+    console.log(this.state.username)
+    console.log(this.state.password)
+  }
+
   render() {
     return (
       <div>
@@ -14,12 +27,14 @@ export default class Login extends React.Component {
             <Form onSubmit={this.handleSubmit} className="login-form" style={{ maxWidth: '400px', width: '100%' }}>
               <Form.Item>
                 <Input
+                  onChange={(e) => this.setState({ username: e.target.value })}
                   prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                   placeholder="Username"
                 />
               </Form.Item>
               <Form.Item>
                 <Input
+                  onChange={(e) => this.setState({ password: e.target.value })}
                   prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                   type="password"
                   placeholder="Password"
@@ -28,14 +43,16 @@ export default class Login extends React.Component {
               <Row>
                 <Col span={12}>
                   <Form.Item>
-                    <Button block type="link" htmlType="submit" className="login-form-button" href="/signup">
+                    <Button block type="link" className="login-form-button" href="/signup">
                       Signup
                     </Button>
                   </Form.Item>
                 </Col>
                 <Col span={12}>
                   <Form.Item>
-                    <Button block type="primary" htmlType="submit" className="login-form-button">
+                    <Button
+                      onClick={() => this.handleSubmit()}
+                      block type="primary" className="login-form-button">
                       Log in
                     </Button>
                   </Form.Item>
