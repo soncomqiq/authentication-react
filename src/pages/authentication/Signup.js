@@ -1,6 +1,7 @@
 import React from 'react'
 import { Row, Form, Icon, Input, Col, Button } from 'antd'
 import logo from '../../images/logo.png'
+import Axios from '../../config/axios.setup'
 
 class Signup extends React.Component {
   constructor(props) {
@@ -36,7 +37,18 @@ class Signup extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, value) => {
       if (!err) {
-        console.log(value)
+        Axios.post('/registerUser', {
+          username: value.username,
+          password: value.password,
+          name: value.name
+        })
+          .then(result => {
+            console.log(result)
+          })
+          .catch(err => {
+            console.error(err)
+          })
+        this.props.form.resetFields()
       }
     })
   }
