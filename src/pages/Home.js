@@ -91,7 +91,7 @@ export default class Home extends React.Component {
   }
 
   componentDidMount() {
-    Axios.get('/protected').then((response) => {
+    Axios.get('/post-list').then((response) => {
       console.log(response)
     })
   }
