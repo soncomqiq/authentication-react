@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom'
-import { Redirect } from 'react-router'
 import { Layout, Col, Row, Avatar, Button, Dropdown, Menu } from 'antd';
 import logo from './images/logo.png'
 import Login from './pages/authentication/Login';
@@ -59,7 +58,6 @@ function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/changepassword" component={ChangePassword} />
-          <Redirect to="/login" />
         </Switch>
       </Content>
     </Layout>

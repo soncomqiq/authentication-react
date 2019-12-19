@@ -26,7 +26,7 @@ export default class Login extends React.Component {
       })
       .catch(err => {
         console.error(err);
-        failLoginNotification(err.response.data.message)
+        failLoginNotification("something went wrong.")
       })
   }
 
