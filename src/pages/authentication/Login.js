@@ -1,6 +1,8 @@
 import React from 'react'
-import { Row, Col, Form, Icon, Input, Button } from 'antd';
+import { Row, notification, Col, Form, Icon, Input, Button } from 'antd';
 import logo from '../../images/logo.png'
+import Axios from '../../config/axios.setup'
+import { failLoginNotification, successLoginNotification } from '../../components/Notification/notification'
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -11,9 +13,21 @@ export default class Login extends React.Component {
     }
   }
 
-  handleSubmit = () => {
-    console.log(this.state.username)
-    console.log(this.state.password)
+  handleSubmit = (e) => {
+    e.preventDefault()
+    const username = this.state.username
+    const password = this.state.password
+    Axios.post('/loginUser', { username, password })
+      .then(result => {
+        console.log(result.data)
+        successLoginNotification()
+        localStorage.setItem("ACCESS_TOKEN", result.data.token)
+        this.props.history.push("/home")
+      })
+      .catch(err => {
+        console.error(err);
+        failLoginNotification(err.response.data.message)
+      })
   }
 
   render() {
@@ -51,7 +65,7 @@ export default class Login extends React.Component {
                 <Col span={12}>
                   <Form.Item>
                     <Button
-                      onClick={() => this.handleSubmit()}
+                      htmlType="submit"
                       block type="primary" className="login-form-button">
                       Log in
                     </Button>
