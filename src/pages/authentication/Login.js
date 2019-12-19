@@ -2,6 +2,7 @@ import React from 'react'
 import { Row, notification, Col, Form, Icon, Input, Button } from 'antd';
 import logo from '../../images/logo.png'
 import Axios from '../../config/axios.setup'
+import jwtDecode from 'jwt-decode'
 import { failLoginNotification, successLoginNotification } from '../../components/Notification/notification'
 
 export default class Login extends React.Component {
@@ -21,8 +22,9 @@ export default class Login extends React.Component {
       .then(result => {
         console.log(result.data)
         successLoginNotification()
-        localStorage.setItem("ACCESS_TOKEN", result.data.token)
-        this.props.history.push("/home")
+        const token = localStorage.setItem("ACCESS_TOKEN", result.data.token)
+        const user = jwtDecode(token)
+        // localStorage.setItem("User", user)
       })
       .catch(err => {
         console.error(err);
