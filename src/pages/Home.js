@@ -1,8 +1,9 @@
 import React from 'react'
-import { Row, Col } from 'antd'
+import { Row, Col, Button } from 'antd'
 import PostList from '../components/post/PostList'
 import CreatePost from '../components/post/CreatePost'
 import Axios from 'axios'
+import jwtDecode from 'jwt-decode'
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -96,6 +97,11 @@ export default class Home extends React.Component {
     })
   }
 
+  onClickUserDecode = () => {
+    const user = jwtDecode(localStorage.getItem("ACCESS_TOKEN"))
+    console.log(user)
+  }
+
   render() {
     return (
       <Row type="flex" justify="center">
@@ -107,6 +113,9 @@ export default class Home extends React.Component {
             <PostList
               postList={this.state.postList}
             />
+          </Row>
+          <Row>
+            <Button onClick={() => this.onClickUserDecode()}>Click Decode</Button>
           </Row>
         </Col>
       </Row>

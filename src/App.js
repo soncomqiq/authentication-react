@@ -12,7 +12,7 @@ const { Header, Content } = Layout;
 class App extends React.Component {
 
   handleLogout = () => {
-
+    localStorage.removeItem("ACCESS_TOKEN")
   }
 
   render() {
@@ -59,8 +59,12 @@ class App extends React.Component {
         </Header>
         <Content style={{ height: '95vh' }}>
           <Switch>
-            <Route exact path="/home" component={Home} />
-            <Route exact path="/login" component={Login} />
+            {localStorage.getItem("ACCESS_TOKEN") ?
+              <Route exact path="/home" component={Home} /> :
+              null}
+            {!localStorage.getItem("ACCESS_TOKEN") ?
+              <Route exact path="/login" component={Login} /> :
+              null}
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/changepassword" component={ChangePassword} />
           </Switch>
